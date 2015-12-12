@@ -1,6 +1,8 @@
 package com.anderson;
 
 import com.echonest.api.v4.*;
+
+import java.io.IOException;
 //TODO add echonest libraries to github
 
 /**
@@ -11,84 +13,132 @@ public class PlaylistFinder {
     private String genre;
     private String keySIgnature;
     private String mode;
-    private String tempo;
+    private float tempo;
     private String yearComparator;
     private int playlistLength;
     private int year;
 
-    //Overloaded constructors for ever possible entry
-    public PlaylistFinder(){
+    private float ECtempo;
+    private String ECgenre;
+    private int ECmode;
+    private int ECkey;
 
-    }
 
-    public PlaylistFinder(String genre){
+
+
+    public PlaylistFinder(int songs, String genre, String key, String mode, float tempo){
+        this.playlistLength = songs;
         this.genre = genre;
-    }
-
-    public PlaylistFinder(String genre, String keySig){
-        this.genre = genre;
-        this.keySIgnature = keySig;
-    }
-
-    public PlaylistFinder(String genre, String keySig, String mode){
-        this.genre = genre;
-        this.keySIgnature = keySig;
-        this.mode = mode;
-    }
-
-    public PlaylistFinder(String genre, String keySig, String mode, String tempo){
-        this.genre = genre;
-        this.keySIgnature = keySig;
+        this.keySIgnature = key;
         this.mode = mode;
         this.tempo = tempo;
+
+
+        translateEntriesToNumbers(this.tempo, this.keySIgnature, this.mode, this.genre);
     }
 
-    public PlaylistFinder(String genre, String keySig, String mode, String tempo, String yearComp){
-        this.genre = genre;
-        this.keySIgnature = keySig;
-        this.mode = mode;
-        this.tempo = tempo;
-        this.yearComparator = yearComp;
+    public void translateEntriesToNumbers(float tempo, String key, String mode, String genre){
+
+        if(mode.equals("Minor")){
+            this.ECmode = 0;
+        }else {
+            this.ECmode = 1;
+        }
+
+        if(key.equals("C")){
+            this.ECkey = 0;
+        }
+        else if(key.equals("C#")){
+            this.ECkey = 1;
+        }
+        else if(key.equals("D")){
+            this.ECkey = 2;
+        }
+        else if(key.equals("D#")){
+            this.ECkey = 3;
+        }
+        else if(key.equals("E")){
+            this.ECkey = 4;
+        }
+        else if(key.equals("F")){
+            this.ECkey = 5;
+        }
+        else if(key.equals("F#")){
+            this.ECkey = 6;
+        }
+        else if(key.equals("G")){
+            this.ECkey = 7;
+        }
+        else if(key.equals("G#")){
+            this.ECkey = 8;
+        }
+        else if(key.equals("A")){
+            this.ECkey = 9;
+        }
+        else if(key.equals("A#")){
+            this.ECkey = 10;
+        }
+        else if(key.equals("B")){
+            this.ECkey = 11;
+        }
+
+        this.ECtempo = tempo;
+
+        this.ECgenre = genre;
+
+
     }
 
-    public PlaylistFinder(String genre, String keySig, String mode, String tempo, String yearComp, int listLength){
-        this.genre = genre;
-        this.keySIgnature = keySig;
-        this.mode = mode;
-        this.tempo = tempo;
-        this.yearComparator = yearComp;
-        this.playlistLength = listLength;
-    }
-
-    public PlaylistFinder(String genre, String keySig, String mode, String tempo, String yearComp, int listLength, int year){
-        this.genre = genre;
-        this.keySIgnature = keySig;
-        this.mode = mode;
-        this.tempo = tempo;
-        this.yearComparator = yearComp;
-        this.playlistLength = listLength;
-        this.year = year;
-
-
-    }
-
-    //Test code to link to echoNest
-    //Not staying, but does work
-    public void showList(){
+    public void createdPlayList() throws IOException{
         try{
-            EchoNestAPI en = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
-            BasicPlaylistParams params = new BasicPlaylistParams();
-            params.addArtist("Weezer");
-            params.setType(BasicPlaylistParams.PlaylistType.ARTIST_RADIO);
-            params.setResults(10);
-            Playlist playlist = en.createBasicPlaylist(params);
+            EchoNestAPI API = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
 
-            for (Song song : playlist.getSongs()) {
+            DynamicPlaylistParams playListParams = new DynamicPlaylistParams();
+            playListParams.setType(PlaylistParams.PlaylistType.CATALOG_RADIO);
+            playListParams.setMode(this.ECmode);
+            playListParams.setKey(this.ECkey);
+            playListParams.setMinTempo(this.ECtempo);
+        //    playListParams.addStyle(this.ECgenre);
+  //          playListParams.setResults(this.playlistLength);
+
+
+
+            Playlist playlist = API.createDynamicPlaylist(playListParams);
+
+
+
+            for(Song song : playlist.getSongs()){
                 System.out.println(song.toString());
             }
-        }catch(EchoNestException ENE){
-            System.out.println("something went wrong with echonest!");
+
+        } catch(EchoNestException ene){
+            System.out.println("Something's wrong with echonest");
+            System.out.println(ene.getCause());
+            ene.printStackTrace();
         }
     }
+
+
+
+
+//    //Test code to link to echoNest
+//    //Not staying, but does work
+//    //                  lie ^
+//    public void showList(){
+//        try{
+//            EchoNestAPI en = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
+//            BasicPlaylistParams params = new BasicPlaylistParams();
+//            params.addArtist("Weezer");
+//            params.setType(BasicPlaylistParams.PlaylistType.ARTIST_RADIO);
+//            params.setResults(10);
+//            Playlist playlist = en.createBasicPlaylist(params);
+//
+//            for (Song song : playlist.getSongs()) {
+//                System.out.println(song.toString());
+//            }
+//        }catch(EchoNestException ENE){
+//            System.out.println("something went wrong with echonest!");
+//        }
+//    }
 }
 

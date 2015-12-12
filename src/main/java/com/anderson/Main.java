@@ -31,9 +31,7 @@ public class Main {
         //Create the GUI
         PlaylistGUI GUI = new PlaylistGUI();
 
-        PlaylistFinder finder = new PlaylistFinder();
 
-        finder.showList();
 
     }
 }
