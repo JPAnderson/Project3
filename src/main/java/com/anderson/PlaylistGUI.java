@@ -15,34 +15,20 @@ import java.util.InputMismatchException;
 public class PlaylistGUI extends JFrame{
     private JPanel rootPanel;
     private JTextField playlistCountBox;
-    private JComboBox genreComboBox;
-    private JComboBox keySigComboBox;
-    private JComboBox majorMinorComboBox;
- //   private JComboBox tempoComboBox;
- //   private JTextField yearTextBox;
- //   private JComboBox timePeriodComboBox;
+    private JTextField artistBox;
+
     private JButton submitButton;
     private JButton clearFieldsButton;
-    private JTextField tempoTextBox;
-
-    private String userSongCount;
-    private String userGenre;
-    private String userKey;
-    private String userMode;
-    private String userTempo;
-    private String userTimeCriteria;
- //   private String userYear;
-
- //   private int userYearInt;
-    private int userSongCountInt;
-    private float userTempoFloat;
-
-    private PlaylistFinder plFinder;
-
-    private String inputError = "Whole Numbers";
-
+    private JLabel errorLabel;
 
     private Dimension d = new Dimension(300, 350);
+
+
+    /***************/
+
+    private String userArtist;
+    private int userSongCount;
+    private ArrayList<String> errorArrayList;
 
     protected PlaylistGUI(){
 
@@ -51,83 +37,28 @@ public class PlaylistGUI extends JFrame{
         pack();
         setVisible(true);
 
-        //Populate combo boxes
-        genreComboBox.addItem("Rock");
-        genreComboBox.addItem("Jazz");
-        genreComboBox.addItem("Pop");
-
-        keySigComboBox.addItem("*any*");
-        keySigComboBox.addItem("C");
-        keySigComboBox.addItem("C#");
-        keySigComboBox.addItem("D");
-        keySigComboBox.addItem("D#");
-        keySigComboBox.addItem("E");
-        keySigComboBox.addItem("F");
-        keySigComboBox.addItem("F#");
-        keySigComboBox.addItem("G");
-        keySigComboBox.addItem("G#");
-        keySigComboBox.addItem("A");
-        keySigComboBox.addItem("A#");
-        keySigComboBox.addItem("B");
-
-        majorMinorComboBox.addItem("*any*");
-        majorMinorComboBox.addItem("Major");
-        majorMinorComboBox.addItem("Minor");
-
-
-
-
-        submitButton.addActionListener(new ActionListener() {
-           // @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        clearFieldsButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                playlistCountBox.setText("");
-            }
-        });
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                userSongCount = playlistCountBox.getText();
-                userTempo = tempoTextBox.getText();
-                userGenre = (String)genreComboBox.getSelectedItem();
-                userKey = (String)keySigComboBox.getSelectedItem();
-                userMode = (String)majorMinorComboBox.getSelectedItem();
-
+                userArtist = artistBox.getText();
+                userSongCount = Integer.parseInt(playlistCountBox.getText());
 
                 try {
-                    userSongCountInt = Integer.parseInt(userSongCount);
-                } catch(NumberFormatException nfe){
-                    playlistCountBox.setText(inputError);
-                }
+                    PlaylistFinder list = new PlaylistFinder(userSongCount, userArtist);
+                    errorArrayList = list.createPlayList();
 
-
-                try{
-                    userTempoFloat = Float.parseFloat(userTempo);
-                }catch(NumberFormatException nfe){
-                    tempoTextBox.setText(inputError);
-                }
-
-                try {
-                    plFinder = new PlaylistFinder(userSongCountInt, userGenre, userKey, userMode, userTempoFloat);
-                    plFinder.createdPlayList();
-
+                    if(errorArrayList.get(0).equals("ERROR")){
+                        errorLabel.setText(errorArrayList.get(1));
+                    }
                 }catch(IOException ioe){
-                    System.out.println("Something was wrong with IO");
-                    System.out.println(ioe.getCause());
+                    System.out.println("Something probably stupid went wrong");
                 }
 
-
-
+               DataBaseGUI dbg = new DataBaseGUI(errorArrayList);
 
 
             }
         });
-
     }
 
 }

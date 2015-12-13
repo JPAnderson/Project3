@@ -3,6 +3,7 @@ package com.anderson;
 import com.echonest.api.v4.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 //TODO add echonest libraries to github
 
 /**
@@ -10,111 +11,46 @@ import java.io.IOException;
  */
 
 public class PlaylistFinder {
-    private String genre;
-    private String keySIgnature;
-    private String mode;
-    private float tempo;
-    private String yearComparator;
-    private int playlistLength;
-    private int year;
-
-    private float ECtempo;
-    private String ECgenre;
-    private int ECmode;
-    private int ECkey;
+    private int playListCount;
+    private String artist;
+    ArrayList<String> songOrErrorReturnList = new ArrayList<String>();
 
 
 
-
-    public PlaylistFinder(int songs, String genre, String key, String mode, float tempo){
-        this.playlistLength = songs;
-        this.genre = genre;
-        this.keySIgnature = key;
-        this.mode = mode;
-        this.tempo = tempo;
-
-
-        translateEntriesToNumbers(this.tempo, this.keySIgnature, this.mode, this.genre);
+    public PlaylistFinder(int songs, String artist){
+       this.playListCount = songs;
+        this.artist = artist;
     }
 
-    public void translateEntriesToNumbers(float tempo, String key, String mode, String genre){
-
-        if(mode.equals("Minor")){
-            this.ECmode = 0;
-        }else {
-            this.ECmode = 1;
-        }
-
-        if(key.equals("C")){
-            this.ECkey = 0;
-        }
-        else if(key.equals("C#")){
-            this.ECkey = 1;
-        }
-        else if(key.equals("D")){
-            this.ECkey = 2;
-        }
-        else if(key.equals("D#")){
-            this.ECkey = 3;
-        }
-        else if(key.equals("E")){
-            this.ECkey = 4;
-        }
-        else if(key.equals("F")){
-            this.ECkey = 5;
-        }
-        else if(key.equals("F#")){
-            this.ECkey = 6;
-        }
-        else if(key.equals("G")){
-            this.ECkey = 7;
-        }
-        else if(key.equals("G#")){
-            this.ECkey = 8;
-        }
-        else if(key.equals("A")){
-            this.ECkey = 9;
-        }
-        else if(key.equals("A#")){
-            this.ECkey = 10;
-        }
-        else if(key.equals("B")){
-            this.ECkey = 11;
-        }
-
-        this.ECtempo = tempo;
-
-        this.ECgenre = genre;
 
 
-    }
 
-    public void createdPlayList() throws IOException{
+
+    public ArrayList createPlayList() throws IOException{
         try{
-            EchoNestAPI API = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
+            EchoNestAPI en = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
+            BasicPlaylistParams params = new BasicPlaylistParams();
+            params.addArtist(this.artist);
+            params.setType(BasicPlaylistParams.PlaylistType.ARTIST_RADIO);
+            params.setResults(this.playListCount);
+            Playlist playlist = en.createBasicPlaylist(params);
 
-            DynamicPlaylistParams playListParams = new DynamicPlaylistParams();
-            playListParams.setType(PlaylistParams.PlaylistType.CATALOG_RADIO);
-            playListParams.setMode(this.ECmode);
-            playListParams.setKey(this.ECkey);
-            playListParams.setMinTempo(this.ECtempo);
-        //    playListParams.addStyle(this.ECgenre);
-  //          playListParams.setResults(this.playlistLength);
-
-
-
-            Playlist playlist = API.createDynamicPlaylist(playListParams);
-
-
-
-            for(Song song : playlist.getSongs()){
-                System.out.println(song.toString());
+            for (Song song : playlist.getSongs()) {
+                songOrErrorReturnList.add(song.getTitle());
+                System.out.println(song.getTitle());
+                System.out.println(song.getArtistName());
             }
+            return songOrErrorReturnList;
 
-        } catch(EchoNestException ene){
-            System.out.println("Something's wrong with echonest");
-            System.out.println(ene.getCause());
-            ene.printStackTrace();
+
+
+        }catch(EchoNestException ENE){
+            songOrErrorReturnList.add(0, "ERROR");
+            songOrErrorReturnList.add(1, "Please enter a valid artist name");
+            return songOrErrorReturnList;
+
+        } finally {
+          //  songOrErrorReturnList.clear();
         }
     }
 

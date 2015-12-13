@@ -19,15 +19,6 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </vspacer>
-      <component id="31152" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="I would like a playlist..."/>
-        </properties>
-      </component>
       <component id="c7699" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -38,7 +29,61 @@
           <text value="Playlister"/>
         </properties>
       </component>
-      <component id="fdecc" class="javax.swing.JTextField" binding="playlistCountBox">
+      <component id="1ac80" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Generate a playlist..."/>
+        </properties>
+      </component>
+      <component id="80390" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="of a style like :"/>
+        </properties>
+      </component>
+      <component id="ef0a" class="javax.swing.JButton" binding="submitButton">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Get Playlist"/>
+        </properties>
+      </component>
+      <component id="2a8d9" class="javax.swing.JTextField" binding="artistBox">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="84b49" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="with this many songs: "/>
+        </properties>
+      </component>
+      <component id="519ff" class="javax.swing.JButton" binding="clearFieldsButton" default-binding="true">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Clear Fields"/>
+        </properties>
+      </component>
+      <component id="49482" class="javax.swing.JTextField" binding="playlistCountBox">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -47,115 +92,13 @@
         </constraints>
         <properties/>
       </component>
-      <component id="f1447" class="javax.swing.JLabel">
+      <component id="effc3" class="javax.swing.JLabel" binding="errorLabel">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="songs"/>
-        </properties>
-      </component>
-      <component id="fc351" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="of the "/>
-        </properties>
-      </component>
-      <component id="c55d9" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value=" genre"/>
-        </properties>
-      </component>
-      <component id="be24" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="In the key of "/>
-        </properties>
-      </component>
-      <component id="8024" class="javax.swing.JComboBox" binding="genreComboBox">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="95f9" class="javax.swing.JComboBox" binding="keySigComboBox">
-        <constraints>
-          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="5d7b8" class="javax.swing.JComboBox" binding="majorMinorComboBox">
-        <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="ade45" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="that are "/>
-        </properties>
-      </component>
-      <component id="ac3c8" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="of "/>
-        </properties>
-      </component>
-      <component id="ef0a" class="javax.swing.JButton" binding="submitButton">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Get Playlist"/>
-        </properties>
-      </component>
-      <component id="519ff" class="javax.swing.JButton" binding="clearFieldsButton" default-binding="true">
-        <constraints>
-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="Clear Fields"/>
-        </properties>
-      </component>
-      <component id="d2630" class="javax.swing.JTextField" binding="tempoTextBox">
-        <constraints>
-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="fbfee" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <text value="B.P.M."/>
+          <text value=""/>
         </properties>
       </component>
     </children>
