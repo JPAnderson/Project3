@@ -14,9 +14,10 @@ public class Database {
     static final String PASSWORD = "team13";
     static Statement statement = null;
     static Connection connection = null;
-     ResultSet resultSet = null;
+    ResultSet resultSet = null;
+    String tableName;
 
-    public static void createDatabase(){
+    public Database(){
         try {
             try{
                 String Driver = "com.mysql.jdbc.Driver";
@@ -32,10 +33,10 @@ public class Database {
             statement = connection.createStatement();
 
             // create database
-         //   String createDatabase = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
-         //   statement.executeUpdate(createDatabase);
+            //   String createDatabase = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
+            //   statement.executeUpdate(createDatabase);
 
-            System.out.println("Database created");
+            System.out.println("Database created/connected");
 
         } catch (SQLException sqle){
             sqle.printStackTrace();
@@ -43,45 +44,56 @@ public class Database {
         }
     }
 
-    public static void createAndFillTable(String tableName, String[] songArray){
+
+    public void createAndFillTable(String tableName, String[] songArray){
 
         try {
             ArrayList<String> songArrayList = new ArrayList<String>(Arrays.asList(songArray));
             String tableUpdate;
 
-            String createPlaylistTable = "CREATE TABLE " + tableName + " (song varchar(40))";
+            String createPlaylistTable = "CREATE TABLE " + tableName + " (song varchar(100))";
             statement.executeUpdate(createPlaylistTable);
 
+            String preparedStatement = "INSERT INTO " + tableName + " VALUES(?)";
+            PreparedStatement psInsert = connection.prepareStatement(preparedStatement);
+
+
             for(String song : songArrayList){
-                tableUpdate = "INSERT INTO " + tableName + " VALUE ('" + song + "')";
-                statement.executeUpdate(tableUpdate);
+                psInsert.setString(1, song);
+                psInsert.executeUpdate();
+
+                System.out.println(song);
                 System.out.println(song + " inserted into " + tableName);
             }
 
         } catch (Exception e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
     public String[] retrievePlaylist(String plName){
+        this.tableName = plName;
         ArrayList<String> retrievePL = new ArrayList<String>();
+        String preparedStatement = "SELECT * FROM " + this.tableName;
 
         try{
-            String search = "SELECT * FROM " + plName;
-            resultSet = statement.executeQuery(search);
+            PreparedStatement psSearch = connection.prepareStatement(preparedStatement);
+
+            resultSet = psSearch.executeQuery();
 
             while(resultSet.next()){
-                String songToAdd = resultSet.getString(0);
+                String songToAdd = resultSet.getString("song");
                 System.out.println(songToAdd);
                 retrievePL.add(songToAdd);
             }
+
             String[] arrayPL = retrievePL.toArray(new String[retrievePL.size()]);
             return arrayPL;
 
 
 
         }catch(SQLException e){
-            System.out.println("Something stupid went wrong");
+            System.out.println(e.getCause());
             String[] errorArray = {"ERROR"};
             return errorArray;
         }

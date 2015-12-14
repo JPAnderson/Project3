@@ -15,16 +15,10 @@ public class PlaylistFinder {
     private String artist;
     ArrayList<String> songOrErrorReturnList = new ArrayList<String>();
 
-
-
     public PlaylistFinder(int songs, String artist){
        this.playListCount = songs;
         this.artist = artist;
     }
-
-
-
-
 
     public ArrayList createPlayList() throws IOException{
         try{
@@ -36,13 +30,11 @@ public class PlaylistFinder {
             Playlist playlist = en.createBasicPlaylist(params);
 
             for (Song song : playlist.getSongs()) {
-                songOrErrorReturnList.add(song.getTitle());
-                System.out.println(song.getTitle());
-                System.out.println(song.getArtistName());
+                songOrErrorReturnList.add(song.getTitle() + " - " + song.getArtistName());
+//                System.out.println(song.getTitle());
+//                System.out.println(song.getArtistName());
             }
             return songOrErrorReturnList;
-
-
 
         }catch(EchoNestException ENE){
             songOrErrorReturnList.add(0, "ERROR");
@@ -54,27 +46,5 @@ public class PlaylistFinder {
         }
     }
 
-
-
-
-//    //Test code to link to echoNest
-//    //Not staying, but does work
-//    //                  lie ^
-//    public void showList(){
-//        try{
-//            EchoNestAPI en = new EchoNestAPI("SEFRW8AEZGLGAWCA3");
-//            BasicPlaylistParams params = new BasicPlaylistParams();
-//            params.addArtist("Weezer");
-//            params.setType(BasicPlaylistParams.PlaylistType.ARTIST_RADIO);
-//            params.setResults(10);
-//            Playlist playlist = en.createBasicPlaylist(params);
-//
-//            for (Song song : playlist.getSongs()) {
-//                System.out.println(song.toString());
-//            }
-//        }catch(EchoNestException ENE){
-//            System.out.println("something went wrong with echonest!");
-//        }
-//    }
 }
 

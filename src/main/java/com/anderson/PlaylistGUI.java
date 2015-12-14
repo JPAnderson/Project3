@@ -25,6 +25,10 @@ public class PlaylistGUI extends JFrame{
     private Dimension d = new Dimension(300, 350);
 
 
+
+
+
+
     /***************/
 
     private String userArtist;
@@ -68,6 +72,15 @@ public class PlaylistGUI extends JFrame{
                 PlaylistsViewGUI pGUI = new PlaylistsViewGUI();
             }
         });
+
+        clearFieldsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                playlistCountBox.setText("");
+                artistBox.setText("");
+            }
+        });
+
+
     }
 
 }

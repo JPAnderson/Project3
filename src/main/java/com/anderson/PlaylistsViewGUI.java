@@ -33,6 +33,7 @@ public class PlaylistsViewGUI extends JFrame {
                 songJList = new JList<String>(toJlist);
                 rootPanel.add(songJList);
                 songJList.setVisible(true);
+                pack();
 
             }
         });

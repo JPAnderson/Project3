@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Database db = new Database();
         //Setting the look and feel to Windows
         //must be called before instantiating the GUI
 
@@ -29,8 +30,9 @@ public class Main {
             System.out.println("Illegal access!");
             e.printStackTrace();
         }
-        //Create the GUI
+
         PlaylistGUI GUI = new PlaylistGUI();
+
 
     }
 

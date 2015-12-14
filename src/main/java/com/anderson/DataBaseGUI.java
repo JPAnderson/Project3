@@ -22,10 +22,8 @@ public class DataBaseGUI extends JFrame {
     private Database db = new Database();
 
 
-
-
     protected DataBaseGUI(ArrayList<String> songList){
-        db.createDatabase();
+      //  db.createDatabase();
 
         final String[] songArray = songList.toArray(new String[songList.size()]);
         songJList = new JList(songArray);
@@ -49,8 +47,6 @@ public class DataBaseGUI extends JFrame {
         saveLabel.setVisible(false);
         saveNameTextBox.setVisible(false);
         confirmSave.setVisible(false);
-
-
         pack();
 
         save.addActionListener(new ActionListener() {
@@ -59,15 +55,12 @@ public class DataBaseGUI extends JFrame {
                 saveLabel.setVisible(true);
                 saveNameTextBox.setVisible(true);
                 confirmSave.setVisible(true);
-
-
             }
         });
 
         confirmSave.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String toDataBase = saveNameTextBox.getText();
-
                 db.createAndFillTable(toDataBase, songArray);
             }
         });
