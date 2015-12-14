@@ -13,6 +13,8 @@ public class PlaylistsViewGUI extends JFrame {
     private JPanel rootPanel;
     private JTextField textField1;
     private JButton playlistSearchButton;
+    private Database db = new Database();
+    private JList<String> songJList;
 
     private Dimension d = new Dimension(350, 400);
 
@@ -21,12 +23,16 @@ public class PlaylistsViewGUI extends JFrame {
 
         setContentPane(rootPanel);
         rootPanel.setPreferredSize(d);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        songJList.setVisible(false);
         pack();
         setVisible(true);
 
         playlistSearchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String[] toJlist = db.retrievePlaylist(textField1.getText());
+                songJList = new JList<String>(toJlist);
+                rootPanel.add(songJList);
+                songJList.setVisible(true);
 
             }
         });

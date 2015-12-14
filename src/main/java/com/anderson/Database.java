@@ -14,7 +14,7 @@ public class Database {
     static final String PASSWORD = "team13";
     static Statement statement = null;
     static Connection connection = null;
-    static ResultSet resultSet;
+     ResultSet resultSet = null;
 
     public static void createDatabase(){
         try {
@@ -29,7 +29,7 @@ public class Database {
 //            statement.executeUpdate(createDatabase);
 
             connection = DriverManager.getConnection(DATABASE_URL + DB_NAME, USER, PASSWORD);
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, resultSet.CONCUR_READ_ONLY);
+            statement = connection.createStatement();
 
             // create database
          //   String createDatabase = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
@@ -43,7 +43,7 @@ public class Database {
         }
     }
 
-    public void createAndFillTable(String tableName, String[] songArray){
+    public static void createAndFillTable(String tableName, String[] songArray){
 
         try {
             ArrayList<String> songArrayList = new ArrayList<String>(Arrays.asList(songArray));
@@ -63,15 +63,27 @@ public class Database {
         }
     }
 
-    public void retrievePlaylist(String plName){
+    public String[] retrievePlaylist(String plName){
+        ArrayList<String> retrievePL = new ArrayList<String>();
 
         try{
             String search = "SELECT * FROM " + plName;
-            statement.executeQuery(search);
+            resultSet = statement.executeQuery(search);
+
+            while(resultSet.next()){
+                String songToAdd = resultSet.getString(0);
+                System.out.println(songToAdd);
+                retrievePL.add(songToAdd);
+            }
+            String[] arrayPL = retrievePL.toArray(new String[retrievePL.size()]);
+            return arrayPL;
+
 
 
         }catch(SQLException e){
             System.out.println("Something stupid went wrong");
+            String[] errorArray = {"ERROR"};
+            return errorArray;
         }
     }
 }

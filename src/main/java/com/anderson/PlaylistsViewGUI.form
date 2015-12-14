@@ -40,6 +40,15 @@
           <text value="Enter the name of a playlist to find:"/>
         </properties>
       </component>
+      <component id="6ba2c" class="javax.swing.JList" binding="songJList">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
     </children>
   </grid>
 </form>
