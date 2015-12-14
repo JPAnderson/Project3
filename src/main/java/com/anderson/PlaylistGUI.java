@@ -20,6 +20,7 @@ public class PlaylistGUI extends JFrame{
     private JButton submitButton;
     private JButton clearFieldsButton;
     private JLabel errorLabel;
+    private JButton searchForPlaylistButton;
 
     private Dimension d = new Dimension(300, 350);
 
@@ -34,6 +35,7 @@ public class PlaylistGUI extends JFrame{
 
         setContentPane(rootPanel);
         rootPanel.setPreferredSize(d);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
 
@@ -57,6 +59,13 @@ public class PlaylistGUI extends JFrame{
                DataBaseGUI dbg = new DataBaseGUI(errorArrayList);
 
 
+            }
+        });
+
+
+        searchForPlaylistButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PlaylistsViewGUI pGUI = new PlaylistsViewGUI();
             }
         });
     }
